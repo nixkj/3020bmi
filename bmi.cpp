@@ -4,9 +4,9 @@
 
 using namespace std;
 
-int ounces2pounds(int x)
+double ounces2pounds(int x)
 {
-    return(x*16);
+    return(x/16.0);
 }
 
 int stones2pounds(int x)
@@ -19,20 +19,25 @@ double weight2kg(int stones, int pounds, int ounces)
     return (stones2pounds(stones)+pounds+ounces2pounds(ounces))/2.2;
 }
 
+double inches2feet(int x)
+{
+    return(x/12.0);
+}
+
 double height2metres(int feet, int inches)
 {
-    return(feet/3.82);
+    return((feet+inches2feet(inches))/3.82);
 }
 
 char categorise(double kg, double metre)
 {
-    double bmi = kg*kg/metre;
+    double bmi = kg/(metre*metre);
     char cat;
     if (bmi<19)
         cat='A';
-    else if (bmi<=26)
+    else if (bmi >= 19 && bmi < 25)
         cat='B';
-    else if (bmi<=300)
+    else if (bmi >= 25 && bmi < 30)
         cat='C';
     else
         cat='D';
@@ -51,13 +56,17 @@ void process_data(char* input_file, char* output_file)
 
     f_in.open(input_file,ios::in);
     f_out.open(output_file,ofstream::out);
+    string line;
+
     while (!f_in.eof())
     {
-    	f_in >> person_id >> pounds >> stones >> ounces >> feet >> inches;
+    	f_in >> person_id >> stones >> pounds >> ounces >> feet >> inches;
+        if (f_in.eof()) { break; }
         kg=weight2kg(int(stones),int(pounds),int(ounces));
         m =height2metres(int(feet),int(inches));
         cat=categorise(kg,m);
-	f_out << person_id << " " << cat << endl;
+        cout << "Loop" << endl;
+	    f_out << person_id << " " << cat << endl;
     }
     f_in.close();
     f_out.close();
