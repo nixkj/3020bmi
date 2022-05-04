@@ -1,4 +1,4 @@
-// good practice to insert comment about intended use, context, contributors, etc
+// KJN - it is good practice to insert comment about intended use, context, contributors, etc
 
 #include <iostream>
 #include <fstream>
@@ -67,6 +67,6 @@ void process_data(char* input_file, char* output_file)
         
 int main(int argc, char *argv[])
 {
-    // Need to check that 3 arguments were supplied upon execution
+    // KJN - Need to check that 3 arguments were supplied upon execution
     process_data(argv[1], argv[2]);
 }
