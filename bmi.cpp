@@ -1,12 +1,14 @@
+// good practice to insert comment about intended use, context, contributors, etc
+
 #include <iostream>
 #include <fstream>
 #include <string>
 
 using namespace std;
 
-double ounces2pounds(int x)
+int ounces2pounds(int x)
 {
-    return(x/16.0);
+    return(x*16);
 }
 
 int stones2pounds(int x)
@@ -19,25 +21,20 @@ double weight2kg(int stones, int pounds, int ounces)
     return (stones2pounds(stones)+pounds+ounces2pounds(ounces))/2.2;
 }
 
-double inches2feet(int x)
-{
-    return(x/12.0);
-}
-
 double height2metres(int feet, int inches)
 {
-    return((feet+inches2feet(inches))/3.82);
+    return(feet/3.82);
 }
 
 char categorise(double kg, double metre)
 {
-    double bmi = kg/(metre*metre);
+    double bmi = kg*kg/metre;
     char cat;
     if (bmi<19)
         cat='A';
-    else if (bmi >= 19 && bmi < 25)
+    else if (bmi<=26)
         cat='B';
-    else if (bmi >= 25 && bmi < 30)
+    else if (bmi<=30)
         cat='C';
     else
         cat='D';
@@ -56,17 +53,13 @@ void process_data(char* input_file, char* output_file)
 
     f_in.open(input_file,ios::in);
     f_out.open(output_file,ofstream::out);
-    string line;
-
     while (!f_in.eof())
     {
-    	f_in >> person_id >> stones >> pounds >> ounces >> feet >> inches;
-        if (f_in.eof()) { break; }
+    	f_in >> person_id >> pounds >> stones >> ounces >> feet >> inches;
         kg=weight2kg(int(stones),int(pounds),int(ounces));
         m =height2metres(int(feet),int(inches));
         cat=categorise(kg,m);
-        cout << "Loop" << endl;
-	    f_out << person_id << " " << cat << endl;
+	f_out << person_id << " " << cat << endl;
     }
     f_in.close();
     f_out.close();
@@ -74,5 +67,6 @@ void process_data(char* input_file, char* output_file)
         
 int main(int argc, char *argv[])
 {
+    // Need to check that 3 arguments were supplied upon execution
     process_data(argv[1], argv[2]);
 }
