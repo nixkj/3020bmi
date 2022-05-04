@@ -30,6 +30,8 @@ double height2metres(int feet, int inches)
     return((feet + inches2feet(inches))/3.82);
 }
 
+
+
 char categorise(int kg, int metre)
 {
     int bmi = kg/(pow(metre,2));
@@ -45,7 +47,7 @@ char categorise(int kg, int metre)
     return(cat);
 }
 
-void process_data(char input_file, char output_file)
+void process_data(char* input_file, char* output_file)
 {
     ifstream f_in;
     ofstream f_out;
@@ -60,17 +62,17 @@ void process_data(char input_file, char output_file)
     while (!f_in.eof())
     {
     	f_in >> person_id >> stones >> pounds >> ounces >> feet >> inches;
-        kg=weight2kg(int(stones),int(pounds),int(ounces));
-        m=height2metres(int(feet),int(inches));
-        cat=categorise(kg,m);
-	f_out << person_id << " " << cat << endl;
-    }
 
+    }
+    kg=weight2kg(int(stones),int(pounds),int(ounces));
+    m=height2metres(int(feet),int(inches));
+    cat=categorise(kg,m);
+	f_out << person_id << " " << cat << endl;
     f_in.close();
     f_out.close();
 }
         
-int main(int argc, char *argv[])
+int main(int argv, char *argv[])
 {
     process_data(argv[1], argv[2]);
 }
