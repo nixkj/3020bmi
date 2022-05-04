@@ -1,3 +1,5 @@
+// good practice to insert comment about intended use, context, contributors, etc
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -32,7 +34,7 @@ char categorise(double kg, double metre)
         cat='A';
     else if (bmi<=26)
         cat='B';
-    else if (bmi<=300)
+    else if (bmi<=30)
         cat='C';
     else
         cat='D';
@@ -65,5 +67,6 @@ void process_data(char* input_file, char* output_file)
         
 int main(int argc, char *argv[])
 {
+    // Need to check that 3 arguments were supplied upon execution
     process_data(argv[1], argv[2]);
 }
